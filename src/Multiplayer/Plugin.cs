@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace HowToFish.SellMultiplier.Multiplayer
 {
-    [BepInPlugin(Guid, "How to Fish - Multiplayer Sell Multiplier", "1.0.0")]
+    [BepInPlugin(Guid, "How to Fish - Multiplayer Sell Multiplier", "1.0.2")]
     public sealed class MultiplayerSellMultiplierPlugin : BaseUnityPlugin
     {
         public const string Guid = "local.howtofish.sellmultiplier.multiplayer";
@@ -58,7 +58,7 @@ namespace HowToFish.SellMultiplier.Multiplayer
 
             if (behaviour == null || !behaviour.IsServerInitialized)
             {
-                MultiplayerSellMultiplierPlugin.Log.LogDebug(source + " skipped: not running on host/server");
+                MultiplayerSellMultiplierPlugin.Log.LogInfo(source + " skipped: not running on host/server");
                 return;
             }
 
@@ -83,18 +83,18 @@ namespace HowToFish.SellMultiplier.Multiplayer
 
                 if (players < MultiplayerSellMultiplierPlugin.MinPlayers.Value)
                 {
-                    MultiplayerSellMultiplierPlugin.Log.LogDebug(source + " skipped: spawnedPlayers=" + players + " < minPlayers=" + MultiplayerSellMultiplierPlugin.MinPlayers.Value);
+                    MultiplayerSellMultiplierPlugin.Log.LogInfo(source + " skipped: spawnedPlayers=" + players + " < minPlayers=" + MultiplayerSellMultiplierPlugin.MinPlayers.Value);
                     return;
                 }
 
                 if (players > MultiplayerSellMultiplierPlugin.MaxPlayers.Value)
                 {
-                    MultiplayerSellMultiplierPlugin.Log.LogDebug(source + " skipped: spawnedPlayers=" + players + " > maxPlayers=" + MultiplayerSellMultiplierPlugin.MaxPlayers.Value);
+                    MultiplayerSellMultiplierPlugin.Log.LogInfo(source + " skipped: spawnedPlayers=" + players + " > maxPlayers=" + MultiplayerSellMultiplierPlugin.MaxPlayers.Value);
                     return;
                 }
 
                 Active = true;
-                MultiplayerSellMultiplierPlugin.Log.LogDebug(source + " active: spawnedPlayers=" + players + ", multiplier=" + multiplier);
+                MultiplayerSellMultiplierPlugin.Log.LogInfo(source + " active: spawnedPlayers=" + players + ", multiplier=" + multiplier);
             }
             catch (Exception exception)
             {
@@ -119,9 +119,9 @@ namespace HowToFish.SellMultiplier.Multiplayer
     internal static class MoneyManagerSellPatch
     {
         [HarmonyPrefix]
-        private static void Prefix(MoneyManager __instance)
+        private static void Prefix()
         {
-            MultiplayerSaleScope.Begin("MoneyManager.SellItem", __instance);
+            MultiplayerSaleScope.Begin("MoneyManager.SellItem", MoneyManager.Instance);
         }
 
         [HarmonyPostfix]

@@ -3,6 +3,11 @@
 A BepInEx 5 plugin that multiplies the value received when selling fish in
 [How to Fish](https://store.steampowered.com/app/4001890/).
 
+The recommended player download is
+`HowToFish.SellMultiplier.AllInOne-1.0.5.zip` from the repository's Releases
+page. It includes BepInEx, both plugin modes, configuration files, and
+installation instructions.
+
 ## Features
 
 - Single-player Mode: applies a 1000x sell multiplier when exactly one spawned
